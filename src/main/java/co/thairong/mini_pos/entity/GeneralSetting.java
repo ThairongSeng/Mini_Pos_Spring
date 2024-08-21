@@ -6,21 +6,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "brands")
-public class Brand {
+@Table(name = "general_setting")
+public class GeneralSetting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50, unique = true)
-    private String name;
+    private String siteTitle;
+    private String siteLogo;
+    private String sitePhone;
+    private String siteAddress;
 
     private boolean isDeleted;
-
 }

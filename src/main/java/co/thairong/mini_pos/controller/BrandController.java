@@ -3,11 +3,8 @@ package co.thairong.mini_pos.controller;
 
 import co.thairong.mini_pos.base.BaseRest;
 import co.thairong.mini_pos.dto.BrandDto;
-import co.thairong.mini_pos.entity.Brand;
-import co.thairong.mini_pos.mapper.BrandMapper;
 import co.thairong.mini_pos.service.BrandService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

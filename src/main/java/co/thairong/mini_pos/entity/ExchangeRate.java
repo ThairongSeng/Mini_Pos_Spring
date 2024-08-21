@@ -6,21 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "brands")
-public class Brand {
+@Table(name = "exchange_rate")
+public class ExchangeRate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 50, unique = true)
-    private String name;
+    private Double exchangeRate;
 
     private boolean isDeleted;
-
 }

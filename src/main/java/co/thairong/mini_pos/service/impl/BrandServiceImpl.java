@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public BrandDto getById(Long brandId) {
-        Brand brand = brandRepository.findById(brandId).orElseThrow(() ->
+        Brand brand = brandRepository.findByIdAndIsDeletedFalse(brandId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("Brand with id %d not found", brandId)));
 
@@ -40,31 +41,35 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public BrandDto updateData(Long id, BrandDto brandDto) {
-        boolean isExist = brandRepository.existsById(id);
+        Brand existingBrand = brandRepository.findByIdAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Brand with id %d not found", id)));
 
-        if (isExist) {
-            Brand brand = brandMapper.brandDtoToBrand(brandDto);
-            brand.setId(id);
-            brandRepository.save(brand);
-            return this.getById(id);
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                String.format("Product with id %d not found", id));
+        existingBrand.setName(brandDto.name());
+        brandRepository.save(existingBrand);
+        return brandMapper.brandToBrandDto(existingBrand);
     }
 
     @Override
     public List<BrandDto> getAllData() {
-        List<Brand> brands = brandRepository.findAll();
+        List<Brand> brands = brandRepository.findByIsDeletedFalse();
 
         return brandMapper.listBrandToListBrandDto(brands);
     }
+
+
     @Override
     public void deleteData(Long id) {
-        if (brandRepository.existsById(id)) {
-            brandRepository.deleteById(id);
+        Optional<Brand> brandOptional = brandRepository.findById(id);
+
+        if (brandOptional.isPresent()) {
+            Brand brand = brandOptional.get();
+            brand.setDeleted(true);
+            brandRepository.save(brand);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     String.format("Brand with id %d not found", id));
         }
     }
+
 }

@@ -14,7 +14,5 @@ public interface BrandMapper {
 
     BrandDto brandToBrandDto(Brand brand);
 
-    List<Brand> listBrandDtoToListBrand(List<BrandDto> brandDto);
-
     List<BrandDto> listBrandToListBrandDto(List<Brand> brand);
 }
