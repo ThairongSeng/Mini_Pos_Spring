@@ -3,17 +3,20 @@ package co.thairong.mini_pos.controller;
 
 import co.thairong.mini_pos.base.BaseRest;
 import co.thairong.mini_pos.dto.BrandDto;
+import co.thairong.mini_pos.dto.PageDto;
 import co.thairong.mini_pos.service.BrandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/brands")
+@RequestMapping("/brands")
 @RequiredArgsConstructor
 public class BrandController {
 
@@ -65,13 +68,13 @@ public class BrandController {
 
     @GetMapping()
     public BaseRest<?> getAllBrands() {
-        List<BrandDto> brandDtos = brandService.getAllData();
+        List<BrandDto> brandDtoList = brandService.getAllData();
 
         return BaseRest.builder()
                 .status(true)
                 .code(HttpStatus.CREATED.value())
                 .message("Brands have been found successfully")
-                .data(brandDtos)
+                .data(brandDtoList)
                 .timestamp(LocalDateTime.now())
                 .build();
     }
@@ -81,6 +84,22 @@ public class BrandController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         brandService.deleteData(id);
+    }
+
+
+    @GetMapping("/page")
+    public BaseRest<?> getWithPagination(@RequestParam Map<String, String> params) {
+
+        Page<BrandDto> brandDtoPage = brandService.getWithPagination(params);
+        PageDto pageDto = new PageDto(brandDtoPage);
+
+        return BaseRest.builder()
+                .status(true)
+                .code(HttpStatus.CREATED.value())
+                .message("Brands have been found successfully")
+                .data(pageDto)
+                .timestamp(LocalDateTime.now())
+                .build();
     }
 
 
