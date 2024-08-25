@@ -6,18 +6,17 @@ import co.thairong.mini_pos.entity.Brand;
 import co.thairong.mini_pos.mapper.BrandMapper;
 import co.thairong.mini_pos.repository.BrandRepository;
 import co.thairong.mini_pos.service.BrandService;
-import co.thairong.mini_pos.service.util.PageUtil;
+import co.thairong.mini_pos.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -66,16 +65,13 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void deleteData(Long id) {
-        Optional<Brand> brandOptional = brandRepository.findById(id);
+        Brand brandOptional = brandRepository.findByIdAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Brand with id %d not found", id)));
 
-        if (brandOptional.isPresent()) {
-            Brand brand = brandOptional.get();
-            brand.setDeleted(true);
-            brandRepository.save(brand);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("Brand with id %d not found", id));
-        }
+        brandOptional.setDeleted(true);
+
+        brandRepository.save(brandOptional);
     }
 
 
@@ -103,7 +99,7 @@ public class BrandServiceImpl implements BrandService {
             String name = params.get(searchName);
             brandPage = brandRepository.findByNameContainingIgnoreCaseAndIsDeletedFalse(name, pageable);
         } else {
-            brandPage = brandRepository.findByIsDeletedFalse(pageable);
+            brandPage = brandRepository.findByIsDeletedFalseOrderByIdDesc(pageable);
         }
 
         // Convert to DTOs

@@ -1,4 +1,4 @@
-package co.thairong.mini_pos.service.util;
+package co.thairong.mini_pos.util;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

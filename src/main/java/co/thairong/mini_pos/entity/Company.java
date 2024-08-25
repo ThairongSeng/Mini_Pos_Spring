@@ -20,14 +20,17 @@ public class Company {
     private String companyLocalName;
     @Column(nullable = false, length = 100)
     private String companyEngName;
+
     @Column(nullable = false)
     private String companyEmail;
+
     @Column(nullable = false, length = 20)
     private String companyPhone;
     @Column(nullable = false, length = 100)
     private String companyAddress;
     @Column(nullable = false, length = 100)
     private String vatNumber;
+
     private String imagePath;
     private String image;
 

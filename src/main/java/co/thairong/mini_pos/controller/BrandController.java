@@ -16,13 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/brands")
+@RequestMapping("/api/v1/brands")
 @RequiredArgsConstructor
 public class BrandController {
 
     private final BrandService brandService;
 
-    @PostMapping()
+    @PostMapping
     public BaseRest<?> createBrand(@Valid @RequestBody BrandDto brandDto) {
 
         BrandDto brandDto1 = brandService.saveData(brandDto);
@@ -44,7 +44,7 @@ public class BrandController {
 
         return BaseRest.builder()
                 .status(true)
-                .code(HttpStatus.CREATED.value())
+                .code(HttpStatus.OK.value())
                 .message("Brand has been found successfully")
                 .data(brandDto)
                 .timestamp(LocalDateTime.now())
@@ -58,7 +58,7 @@ public class BrandController {
 
         return BaseRest.builder()
                 .status(true)
-                .code(HttpStatus.CREATED.value())
+                .code(HttpStatus.OK.value())
                 .message("Brand has been updated successfully")
                 .data(brandDto1)
                 .timestamp(LocalDateTime.now())
@@ -66,13 +66,13 @@ public class BrandController {
     }
 
 
-    @GetMapping()
+    @GetMapping
     public BaseRest<?> getAllBrands() {
         List<BrandDto> brandDtoList = brandService.getAllData();
 
         return BaseRest.builder()
                 .status(true)
-                .code(HttpStatus.CREATED.value())
+                .code(HttpStatus.OK.value())
                 .message("Brands have been found successfully")
                 .data(brandDtoList)
                 .timestamp(LocalDateTime.now())
@@ -88,14 +88,14 @@ public class BrandController {
 
 
     @GetMapping("/page")
-    public BaseRest<?> getWithPagination(@RequestParam Map<String, String> params) {
+    public BaseRest<?> getWithPagination(@RequestParam(required = false) Map<String, String> params) {
 
         Page<BrandDto> brandDtoPage = brandService.getWithPagination(params);
         PageDto pageDto = new PageDto(brandDtoPage);
 
         return BaseRest.builder()
                 .status(true)
-                .code(HttpStatus.CREATED.value())
+                .code(HttpStatus.OK.value())
                 .message("Brands have been found successfully")
                 .data(pageDto)
                 .timestamp(LocalDateTime.now())

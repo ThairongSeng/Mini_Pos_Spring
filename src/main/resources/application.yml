@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -12,6 +11,11 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-server:
-  servlet:
-    context-path: /api/v1
+
+file:
+  server-path: /Users/macbookpro/Pictures/photo/
+  client-path: /files/**
+  base-url: http://localhost:8080/files/
+  download-url: http://localhost:8080/api/v1/files/download/
+
+

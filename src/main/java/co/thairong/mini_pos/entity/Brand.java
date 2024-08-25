@@ -2,6 +2,7 @@ package co.thairong.mini_pos.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
