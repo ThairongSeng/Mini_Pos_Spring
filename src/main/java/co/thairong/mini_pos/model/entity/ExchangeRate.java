@@ -1,8 +1,7 @@
-package co.thairong.mini_pos.entity;
+package co.thairong.mini_pos.model.entity;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,5 +19,5 @@ public class ExchangeRate {
 
     private Double exchangeRate;
 
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }

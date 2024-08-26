@@ -1,6 +1,6 @@
 package co.thairong.mini_pos.service.impl;
 
-import co.thairong.mini_pos.dto.FileDto;
+import co.thairong.mini_pos.model.dto.FileDto;
 import co.thairong.mini_pos.service.FileService;
 import co.thairong.mini_pos.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;

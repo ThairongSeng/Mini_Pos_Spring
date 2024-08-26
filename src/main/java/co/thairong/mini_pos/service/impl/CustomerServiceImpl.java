@@ -1,7 +1,7 @@
 package co.thairong.mini_pos.service.impl;
 
-import co.thairong.mini_pos.dto.CustomerDto;
-import co.thairong.mini_pos.entity.Customer;
+import co.thairong.mini_pos.model.dto.CustomerDto;
+import co.thairong.mini_pos.model.entity.Customer;
 import co.thairong.mini_pos.mapper.CustomerMapper;
 import co.thairong.mini_pos.repository.CustomerRepository;
 import co.thairong.mini_pos.service.CustomerService;
@@ -46,16 +46,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Long customerId) {
-//        Customer customer = customerRepository.findCustomerByIdAndIsDeletedFalse(customerId).orElseThrow(() ->
-//                new ResponseStatusException(
-//                        HttpStatus.NOT_FOUND,
-//                        String.format("Customer with id %d not found", customerId)
-//                ));
-
         CustomerDto customerDto = getByCustomerId(customerId);
-
         Customer customer = customerMapper.customerDtoToCustomer(customerDto);
 
+        customer.setId(customerId);
         customer.setDeleted(true);
 
         customerRepository.save(customer);
@@ -65,12 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto updateCustomer(Long customerId, CustomerDto customerDto) {
 
-        Customer customer = customerRepository.findCustomerByIdAndIsDeletedFalse(customerId).orElseThrow(() ->
-            new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    String.format("Customer with id %d not found", customerId)
-        ));
+        CustomerDto customerDto1 = getByCustomerId(customerId);
+        Customer customer = customerMapper.customerDtoToCustomer(customerDto1);
 
+        customer.setId(customerId);
         customer.setCustomerLocalName(customerDto.customerLocalName());
         customer.setCustomerEngName(customerDto.customerEngName());
         customer.setCustomerEmail(customerDto.customerEmail());

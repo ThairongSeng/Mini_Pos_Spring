@@ -1,6 +1,6 @@
 package co.thairong.mini_pos.repository;
 
-import co.thairong.mini_pos.entity.Customer;
+import co.thairong.mini_pos.model.entity.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +16,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Page<Customer> findByIsDeletedFalseOrderByIdDesc(Pageable pageable);
 
     Page<Customer> findByCustomerEngNameContainingIgnoreCaseAndIsDeletedFalse(String customerEngName, Pageable pageable);
+
 }

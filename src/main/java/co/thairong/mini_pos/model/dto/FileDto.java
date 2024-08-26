@@ -1,4 +1,4 @@
-package co.thairong.mini_pos.dto;
+package co.thairong.mini_pos.model.dto;
 
 import lombok.Builder;
 

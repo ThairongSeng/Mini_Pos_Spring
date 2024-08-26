@@ -1,7 +1,7 @@
 package co.thairong.mini_pos.mapper;
 
-import co.thairong.mini_pos.dto.CustomerDto;
-import co.thairong.mini_pos.entity.Customer;
+import co.thairong.mini_pos.model.dto.CustomerDto;
+import co.thairong.mini_pos.model.entity.Customer;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

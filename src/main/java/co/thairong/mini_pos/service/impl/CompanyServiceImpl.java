@@ -1,9 +1,7 @@
 package co.thairong.mini_pos.service.impl;
 
-import co.thairong.mini_pos.dto.BrandDto;
-import co.thairong.mini_pos.dto.CompanyDto;
-import co.thairong.mini_pos.entity.Brand;
-import co.thairong.mini_pos.entity.Company;
+import co.thairong.mini_pos.model.dto.CompanyDto;
+import co.thairong.mini_pos.model.entity.Company;
 import co.thairong.mini_pos.mapper.CompanyMapper;
 import co.thairong.mini_pos.repository.CompanyRepository;
 import co.thairong.mini_pos.service.CompanyService;
@@ -51,10 +49,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void deleteCompany(Long companyId) {
-        Company company = companyRepository.findByIdAndIsDeletedFalse(companyId).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("Company with id %d not found", companyId)));
+       CompanyDto companyDto = getById(companyId);
+       Company company = companyMapper.companyDtoToCompany(companyDto);
 
+       company.setId(companyId);
         company.setDeleted(true);
 
         companyRepository.save(company);
@@ -62,10 +60,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyDto updateCompany(Long id, CompanyDto companyDto) {
-        Company company = companyRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("Company with id %d not found", id)));
+       CompanyDto currentCompany = getById(id);
+       Company company = companyMapper.companyDtoToCompany(currentCompany);
 
+        company.setId(id);
         company.setCompanyLocalName(companyDto.companyLocalName());
         company.setCompanyEngName(companyDto.companyEngName());
         company.setCompanyEmail(companyDto.companyEmail());

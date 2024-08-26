@@ -1,9 +1,7 @@
 package co.thairong.mini_pos.service.impl;
 
-import co.thairong.mini_pos.dto.BrandDto;
-import co.thairong.mini_pos.dto.SupplierDto;
-import co.thairong.mini_pos.entity.Brand;
-import co.thairong.mini_pos.entity.Supplier;
+import co.thairong.mini_pos.model.dto.SupplierDto;
+import co.thairong.mini_pos.model.entity.Supplier;
 import co.thairong.mini_pos.mapper.SupplierMapper;
 import co.thairong.mini_pos.repository.SupplierRepository;
 import co.thairong.mini_pos.service.SupplierService;
@@ -47,11 +45,10 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public SupplierDto updateSupplier(Long id, SupplierDto supplierDto) {
-        Supplier supplier = supplierRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                String.format("Supplier with id %d is not found.", id)
-        ));
+        SupplierDto supplierDto1 = getById(id);
+        Supplier supplier = supplierMapper.supplierDtoToSupplier(supplierDto1);
 
+        supplier.setId(id);
         supplier.setSupplierLocalName(supplierDto.supplierLocalName());
         supplier.setSupplierEngName(supplierDto.supplierEngName());
         supplier.setSupplierAddress(supplierDto.supplierAddress());
@@ -66,10 +63,10 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void deleteSupplier(Long id) {
-        Supplier supplier = supplierRepository.findByIdAndIsDeletedFalse(id).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                String.format("Supplier with id %d is not found.", id)
-        ));
+        SupplierDto supplierDto = getById(id);
+        Supplier supplier = supplierMapper.supplierDtoToSupplier(supplierDto);
+
+        supplier.setId(id);
         supplier.setDeleted(true);
 
         supplierRepository.save(supplier);

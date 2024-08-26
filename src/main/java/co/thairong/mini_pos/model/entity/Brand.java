@@ -1,4 +1,4 @@
-package co.thairong.mini_pos.entity;
+package co.thairong.mini_pos.model.entity;
 
 
 import jakarta.persistence.*;
@@ -22,6 +22,6 @@ public class Brand {
     @Column(nullable = false, length = 50, unique = true)
     private String name;
 
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 
 }

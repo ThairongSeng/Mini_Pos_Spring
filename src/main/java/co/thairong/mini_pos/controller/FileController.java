@@ -2,7 +2,7 @@ package co.thairong.mini_pos.controller;
 
 
 import co.thairong.mini_pos.base.BaseRest;
-import co.thairong.mini_pos.dto.FileDto;
+import co.thairong.mini_pos.model.dto.FileDto;
 import co.thairong.mini_pos.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

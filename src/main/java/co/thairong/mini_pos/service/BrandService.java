@@ -1,6 +1,6 @@
 package co.thairong.mini_pos.service;
 
-import co.thairong.mini_pos.dto.BrandDto;
+import co.thairong.mini_pos.model.dto.BrandDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

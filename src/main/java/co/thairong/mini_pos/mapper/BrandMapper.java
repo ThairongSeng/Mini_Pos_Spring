@@ -1,8 +1,8 @@
 package co.thairong.mini_pos.mapper;
 
 
-import co.thairong.mini_pos.dto.BrandDto;
-import co.thairong.mini_pos.entity.Brand;
+import co.thairong.mini_pos.model.dto.BrandDto;
+import co.thairong.mini_pos.model.entity.Brand;
 import org.mapstruct.Mapper;
 
 import java.util.List;

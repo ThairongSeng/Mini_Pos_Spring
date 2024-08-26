@@ -1,4 +1,4 @@
-package co.thairong.mini_pos.entity;
+package co.thairong.mini_pos.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,5 +31,5 @@ public class Customer {
     @Column(nullable = false, length = 100)
     private String customerAddress;
 
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 }

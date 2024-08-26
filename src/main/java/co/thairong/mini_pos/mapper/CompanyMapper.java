@@ -1,8 +1,8 @@
 package co.thairong.mini_pos.mapper;
 
 
-import co.thairong.mini_pos.dto.CompanyDto;
-import co.thairong.mini_pos.entity.Company;
+import co.thairong.mini_pos.model.dto.CompanyDto;
+import co.thairong.mini_pos.model.entity.Company;
 import org.mapstruct.Mapper;
 
 import java.util.List;

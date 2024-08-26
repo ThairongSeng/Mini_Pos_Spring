@@ -1,7 +1,7 @@
 package co.thairong.mini_pos.repository;
 
 
-import co.thairong.mini_pos.entity.Supplier;
+import co.thairong.mini_pos.model.entity.Supplier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

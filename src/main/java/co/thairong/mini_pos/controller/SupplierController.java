@@ -2,9 +2,8 @@ package co.thairong.mini_pos.controller;
 
 
 import co.thairong.mini_pos.base.BaseRest;
-import co.thairong.mini_pos.dto.CompanyDto;
-import co.thairong.mini_pos.dto.PageDto;
-import co.thairong.mini_pos.dto.SupplierDto;
+import co.thairong.mini_pos.model.dto.PageDto;
+import co.thairong.mini_pos.model.dto.SupplierDto;
 import co.thairong.mini_pos.service.SupplierService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

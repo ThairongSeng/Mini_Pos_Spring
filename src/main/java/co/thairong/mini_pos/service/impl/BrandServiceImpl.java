@@ -1,8 +1,7 @@
 package co.thairong.mini_pos.service.impl;
 
-
-import co.thairong.mini_pos.dto.BrandDto;
-import co.thairong.mini_pos.entity.Brand;
+import co.thairong.mini_pos.model.dto.BrandDto;
+import co.thairong.mini_pos.model.entity.Brand;
 import co.thairong.mini_pos.mapper.BrandMapper;
 import co.thairong.mini_pos.repository.BrandRepository;
 import co.thairong.mini_pos.service.BrandService;
@@ -45,11 +44,12 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public BrandDto updateData(Long id, BrandDto brandDto) {
-        Brand existingBrand = brandRepository.findByIdAndIsDeletedFalse(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("Brand with id %d not found", id)));
+        BrandDto existingBrandDto = getById(id);
+        Brand existingBrand = brandMapper.brandDtoToBrand(existingBrandDto);
 
+        existingBrand.setId(id);
         existingBrand.setName(brandDto.name());
+
         brandRepository.save(existingBrand);
 
         return brandMapper.brandToBrandDto(existingBrand);
@@ -65,10 +65,10 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void deleteData(Long id) {
-        Brand brandOptional = brandRepository.findByIdAndIsDeletedFalse(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("Brand with id %d not found", id)));
+        BrandDto existingBrand = getById(id);
+        Brand brandOptional = brandMapper.brandDtoToBrand(existingBrand);
 
+        brandOptional.setId(id);
         brandOptional.setDeleted(true);
 
         brandRepository.save(brandOptional);
